@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Moodly</string>
+    <string name="nav_home">Beranda</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_stats">Statistik</string>
+    <string name="nav_profile">Profil</string>
+    <string name="add_mood">Catat Mood</string>
+    <string name="reminder_channel">Pengingat harian</string>
+</resources>

@@ -1,19 +1,20 @@
 package com.contoh.halokotlin.ui
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.view.View
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.contoh.halokotlin.AboutActivity
+import com.contoh.halokotlin.EditProfileActivity
 import com.contoh.halokotlin.MainActivity
 import com.contoh.halokotlin.R
 import com.contoh.halokotlin.data.MoodRepository
 import com.contoh.halokotlin.data.Reminder
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import java.util.Locale
@@ -26,7 +27,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
         repo = MoodRepository(requireContext())
 
-        view.findViewById<MaterialButton>(R.id.btnEditName).setOnClickListener { editName() }
+        view.findViewById<MaterialButton>(R.id.btnEditName).setOnClickListener {
+            startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+        }
+        view.findViewById<MaterialCardView>(R.id.cardProfile).setOnClickListener { openAbout() }
 
         val swReminder = view.findViewById<MaterialSwitch>(R.id.swReminder)
         swReminder.isChecked = repo.reminderEnabled
@@ -76,25 +80,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         btnTime.isEnabled = repo.reminderEnabled
     }
 
-    private fun editName() {
-        val ctx = requireContext()
-        val input = EditText(ctx)
-        input.setText(repo.userName)
-        input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
-        input.setSelection(input.text.length)
-        val wrap = FrameLayout(ctx)
-        wrap.setPadding(ctx.dp(20), ctx.dp(8), ctx.dp(20), 0)
-        wrap.addView(input)
-
-        MaterialAlertDialogBuilder(ctx)
-            .setTitle("Nama panggilan")
-            .setView(wrap)
-            .setNegativeButton("Batal", null)
-            .setPositiveButton("Simpan") { _, _ ->
-                val name = input.text.toString().trim()
-                if (name.isNotEmpty()) repo.userName = name
-                render()
-            }
-            .show()
+    private fun openAbout() {
+        val intent = Intent(requireContext(), AboutActivity::class.java)
+        intent.putExtra(AboutActivity.EXTRA_NAMA, repo.userName)
+        intent.putExtra(AboutActivity.EXTRA_EMAIL, repo.userEmail)
+        intent.putExtra(AboutActivity.EXTRA_BIO, repo.userBio)
+        startActivity(intent)
     }
 }

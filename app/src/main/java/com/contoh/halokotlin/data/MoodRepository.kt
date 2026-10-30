@@ -15,6 +15,14 @@ class MoodRepository(context: Context) {
         get() = prefs.getString(KEY_NAME, null) ?: "Kamu"
         set(value) = prefs.edit().putString(KEY_NAME, value).apply()
 
+    var userEmail: String
+        get() = prefs.getString(KEY_EMAIL, null) ?: ""
+        set(value) = prefs.edit().putString(KEY_EMAIL, value).apply()
+
+    var userBio: String
+        get() = prefs.getString(KEY_BIO, null) ?: ""
+        set(value) = prefs.edit().putString(KEY_BIO, value).apply()
+
     // Belum pernah isi nama → tampilkan layar sambutan dulu
     val hasName: Boolean
         get() = !prefs.getString(KEY_NAME, null).isNullOrBlank()
@@ -117,6 +125,8 @@ class MoodRepository(context: Context) {
     companion object {
         private const val KEY_ENTRIES = "entries"
         private const val KEY_NAME = "name"
+        private const val KEY_EMAIL = "email"
+        private const val KEY_BIO = "bio"
         private const val KEY_REMINDER = "reminder"
         private const val KEY_REMINDER_HOUR = "reminder_hour"
         private const val KEY_REMINDER_MINUTE = "reminder_minute"

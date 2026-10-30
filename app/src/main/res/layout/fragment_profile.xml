@@ -26,6 +26,7 @@
             android:paddingBottom="88dp">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardProfile"
                 style="@style/Moodly.Card.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

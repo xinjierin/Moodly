@@ -81,10 +81,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun openAbout() {
-        val intent = Intent(requireContext(), AboutActivity::class.java)
-        intent.putExtra(AboutActivity.EXTRA_NAMA, repo.userName)
-        intent.putExtra(AboutActivity.EXTRA_EMAIL, repo.userEmail)
-        intent.putExtra(AboutActivity.EXTRA_BIO, repo.userBio)
-        startActivity(intent)
+        startActivity(AboutActivity.newIntent(requireContext()))
     }
 }

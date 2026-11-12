@@ -6,6 +6,7 @@ import android.util.Patterns
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import com.contoh.halokotlin.data.MoodRepository
+import com.contoh.halokotlin.data.ProfileSummary
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -26,10 +27,8 @@ class WelcomeActivity : AppCompatActivity() {
         fun submit() {
             val name = etName.text?.toString()?.trim().orEmpty()
             val email = etEmail.text?.toString()?.trim().orEmpty()
-            if (name.isEmpty()) {
-                tilName.error = "Isi nama dulu ya"
-                return
-            }
+            tilName.error = ProfileSummary.validateName(name)
+            if (tilName.error != null) return
             // Email boleh kosong, tapi kalau diisi formatnya harus bener
             if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 tilEmail.error = "Format email belum bener"
